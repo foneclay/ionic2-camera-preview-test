@@ -15,6 +15,9 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-html, body, .ion-app, .ion-content, ion-app.ios, .ion-page ion-content {
-  background-color: transparent;
+ion-app, ion-content, .nav-decor {
+  background-color: transparent !important;;
 }
+
+// all purpose settings
+// html, body, ion-app, ion-content, ion-page, .nav-decor{ background-color: transparent !important; }

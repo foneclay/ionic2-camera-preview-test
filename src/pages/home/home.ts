@@ -15,10 +15,10 @@ export class HomePage {
 
   startCameraAbove () {
     const cameraPreviewOpts = {
-      x: 50,
-      y: 200,
-      width: 300,
-      height: 300,
+      x: 0,
+      y: window.screen.height/4,
+      width: window.screen.width,
+      height: window.screen.height/2,
       camera: 'front',
       tapPhoto: false,
       previewDrag: false,
@@ -29,10 +29,10 @@ export class HomePage {
 
   startCameraBelow () {
     const cameraPreviewOpts = {
-      x: 50,
-      y: 200,
-      width: 300,
-      height: 300,
+      x: 0,
+      y: window.screen.height/4,
+      width: window.screen.width,
+      height: window.screen.height/2,
       camera: 'front',
       tapPhoto: false,
       previewDrag: false,
