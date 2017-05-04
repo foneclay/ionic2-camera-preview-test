@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Ionic Blank
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-row padding>
+    <ion-col>
+      <button ion-button secondary (click)='startCameraAbove()'>Start Camera<br>Above</button>
+    </ion-col>
+    <ion-col>
+      <button ion-button secondary (click)='startCameraBelow()'>Start Camera<br>Below</button>
+    </ion-col>
+    <ion-col>
+      <button ion-button secondary (click)='stopCamera()'>Stop Camera</button>
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-footer>{{cameraStatus}}
+</ion-footer>
