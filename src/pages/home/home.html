@@ -6,19 +6,28 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-row padding>
+<ion-content >
+  <ion-row justify-content-center>
     <ion-col>
-      <button ion-button secondary (click)='startCameraAbove()'>Start Camera<br>Above</button>
-    </ion-col>
-    <ion-col>
-      <button ion-button secondary (click)='startCameraBelow()'>Start Camera<br>Below</button>
+      <button ion-button secondary (click)='startCamera()'>Start Camera</button>
     </ion-col>
     <ion-col>
       <button ion-button secondary (click)='stopCamera()'>Stop Camera</button>
     </ion-col>
   </ion-row>
+  
 </ion-content>
 
-<ion-footer>{{cameraStatus}}
+<ion-footer>
+  <ion-row justify-content-center>
+    <ion-col>
+      <button ion-button secondary (click)='takePhoto()'>Take Photo</button>
+    </ion-col>
+    <ion-col>
+      <img [src]="picture">
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    {{cameraStatus}}
+  </ion-row>
 </ion-footer>
