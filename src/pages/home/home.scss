@@ -2,9 +2,12 @@ page-home {
   .transparent {
     background-color: transparent !important;
   }
+  .tablet {
+    background-image: url('../assets/Mask-iPad.png') !important;
+  }
   ion-content {
     background-color: black !important;
-    background-image: url('../assets/Mask-2.png');
+    background-image: url('../assets/Mask-iPhone.png');
     background-repeat: no-repeat;
     background-size: cover;
     #myCanvas {

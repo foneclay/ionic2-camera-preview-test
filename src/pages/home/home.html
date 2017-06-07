@@ -1,29 +1,32 @@
-<ion-content no-margin no-padding [ngClass]="{ transparent: isTransparent }">
+<ion-content no-padding [ngClass]="{ 'transparent': isTransparent, 'tablet': isTablet }">
   <canvas id="myCanvas"></canvas>
-  <ion-row justify-content-center>
-    <ion-col>
-      <button ion-button secondary (click)='startCamera()'>Start Camera</button>
-    </ion-col>
-    <ion-col>
-      <button ion-button secondary (click)='stopCamera()'>Stop Camera</button>
-    </ion-col>
-    <ion-col>
-      <button ion-button secondary (click)='getSizes()'>Get Sizes</button>
-    </ion-col>
-  </ion-row>
-  
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col>
+        <button ion-button secondary (click)='startCamera()'>Start Camera</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button secondary (click)='stopCamera()'>Stop Camera</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button secondary (click)='getSizes()'>Get Sizes</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 
 <ion-footer>
-  <ion-row justify-content-center>
-    <ion-col>
-      <button ion-button secondary (click)='takePhoto()'>Take Photo</button>
-    </ion-col>    
-    <ion-col>
-      <button ion-button secondary (click)='reset()'>Reset</button>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    {{cameraStatus}}
-  </ion-row>
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col>
+        <button ion-button secondary (click)='takePhoto()'>Take Photo</button>
+      </ion-col>    
+      <ion-col>
+        <button ion-button secondary (click)='reset()'>Reset</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      {{cameraStatus}}
+    </ion-row>
+  </ion-grid>
 </ion-footer>

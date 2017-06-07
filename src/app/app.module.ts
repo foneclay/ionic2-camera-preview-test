@@ -15,7 +15,7 @@ import { HomePage } from '../pages/home/home';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -26,7 +26,7 @@ import { HomePage } from '../pages/home/home';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    CameraPreview
+    CameraPreview,
   ]
 })
 export class AppModule {}

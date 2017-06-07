@@ -11,26 +11,46 @@ export class HomePage {
   cameraStatus: string;
   picture: string;
   isTransparent: boolean;
+  isTablet: boolean;
+  cameraPreviewOpts: CameraPreviewOptions;
 
   constructor(public navCtrl: NavController, private cameraPreview: CameraPreview) {
     this.picture = 'assets/icon/favicon.ico';
     this.isTransparent = false;
+    if( window.screen.height/window.screen.width === 4/3 ) {
+      this.isTablet = true;
+      this.cameraPreviewOpts = {
+        x: 0,
+        y: window.screen.height/4,
+        width: window.screen.width,
+        height: window.screen.height/2,
+        camera: 'front',
+        tapPhoto: false,
+        previewDrag: false,
+        toBack: true,
+        alpha: 1
+      };
+    }
+    else {
+      this.isTablet = false;
+      this.cameraPreviewOpts = {
+        x: 0,
+        y: window.screen.height/2 - window.screen.width*2/3,
+        width: window.screen.width,
+        height: window.screen.width*4/3,
+        camera: 'front',
+        tapPhoto: false,
+        previewDrag: false,
+        toBack: true,
+        alpha: 1
+      };
+    }
   }
 
-  cameraPreviewOpts: CameraPreviewOptions = {
-    x: 0,
-    y: window.screen.height/2 - window.screen.width*4/6,
-    width: window.screen.width,
-    height: window.screen.width*4/3,
-    camera: 'front',
-    tapPhoto: false,
-    previewDrag: false,
-    toBack: true,
-    alpha: 1
-  };
-
   pictureOpts: CameraPreviewPictureOptions = {
-
+    height: 2730,
+    width: 2048,
+    quality: 100
   };
 
   startCamera() {
@@ -40,6 +60,7 @@ export class HomePage {
         console.log(res);
         this.cameraStatus = 'camera started';
         console.log('screen is ' + window.screen.width + 'x' + window.screen.height);
+        console.log(this.isTablet);
       },
       (err) => {
         console.log(err);
@@ -78,7 +99,8 @@ export class HomePage {
   }
 
   takePhoto() {
-    this.cameraPreview.takePicture().then(
+    let tablet = this.isTablet;
+    this.cameraPreview.takePicture(this.pictureOpts).then(
       (imageData) => {
         this.isTransparent = false;
         this.picture = 'data:image/jpeg;base64,' + imageData;
@@ -87,7 +109,12 @@ export class HomePage {
         var image = new Image();
         image.onload = function() {
           console.log('image is ' + image.width + 'x' + image.height);
-          ctx.drawImage(image, 0, image.height*0.3, image.width, image.height*0.4, 0, 0, canvas.width, canvas.height);
+          if( tablet ) {
+            ctx.drawImage(image, 0, 0.35*image.height, image.width, 0.3*image.height, 0, 0, canvas.width, canvas.height);
+          }
+          else {
+            ctx.drawImage(image, 0, image.height*0.3, image.width, image.height*0.4, 0, 0, canvas.width, canvas.height);
+          }
         };
         image.src = 'data:image/png;base64,' + imageData;
       },
