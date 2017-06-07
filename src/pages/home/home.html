@@ -1,18 +1,14 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content >
+<ion-content no-margin no-padding [ngClass]="{ transparent: isTransparent }">
+  <canvas id="myCanvas"></canvas>
   <ion-row justify-content-center>
     <ion-col>
       <button ion-button secondary (click)='startCamera()'>Start Camera</button>
     </ion-col>
     <ion-col>
       <button ion-button secondary (click)='stopCamera()'>Stop Camera</button>
+    </ion-col>
+    <ion-col>
+      <button ion-button secondary (click)='getSizes()'>Get Sizes</button>
     </ion-col>
   </ion-row>
   
@@ -22,9 +18,9 @@
   <ion-row justify-content-center>
     <ion-col>
       <button ion-button secondary (click)='takePhoto()'>Take Photo</button>
-    </ion-col>
+    </ion-col>    
     <ion-col>
-      <img [src]="picture">
+      <button ion-button secondary (click)='reset()'>Reset</button>
     </ion-col>
   </ion-row>
   <ion-row>
