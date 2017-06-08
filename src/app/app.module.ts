@@ -26,7 +26,7 @@ import { HomePage } from '../pages/home/home';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    CameraPreview,
+    CameraPreview
   ]
 })
 export class AppModule {}

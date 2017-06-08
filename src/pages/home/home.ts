@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview';
-
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -13,9 +12,9 @@ export class HomePage {
   isTransparent: boolean;
   isTablet: boolean;
   cameraPreviewOpts: CameraPreviewOptions;
+  pictureTaken = false;
 
   constructor(public navCtrl: NavController, private cameraPreview: CameraPreview) {
-    this.picture = 'assets/icon/favicon.ico';
     this.isTransparent = false;
     if( window.screen.height/window.screen.width === 4/3 ) {
       this.isTablet = true;
@@ -24,7 +23,7 @@ export class HomePage {
         y: window.screen.height/4,
         width: window.screen.width,
         height: window.screen.height/2,
-        camera: 'front',
+        camera: 'rear',
         tapPhoto: false,
         previewDrag: false,
         toBack: true,
@@ -38,7 +37,7 @@ export class HomePage {
         y: window.screen.height/2 - window.screen.width*2/3,
         width: window.screen.width,
         height: window.screen.width*4/3,
-        camera: 'front',
+        camera: 'rear',
         tapPhoto: false,
         previewDrag: false,
         toBack: true,
@@ -59,8 +58,6 @@ export class HomePage {
         this.isTransparent = true;
         console.log(res);
         this.cameraStatus = 'camera started';
-        console.log('screen is ' + window.screen.width + 'x' + window.screen.height);
-        console.log(this.isTablet);
       },
       (err) => {
         console.log(err);
@@ -71,6 +68,7 @@ export class HomePage {
   stopCamera() {
     this.cameraPreview.stopCamera().then(
       (res) => {
+        this.isTransparent = false;
         console.log(res);
         this.cameraStatus = 'camera stopped';
       },
@@ -94,41 +92,40 @@ export class HomePage {
     );
   }
 
-  convert() {
-
-  }
-
   takePhoto() {
     let tablet = this.isTablet;
     this.cameraPreview.takePicture(this.pictureOpts).then(
       (imageData) => {
         this.isTransparent = false;
-        this.picture = 'data:image/jpeg;base64,' + imageData;
-        var canvas = <HTMLCanvasElement> document.getElementById("myCanvas");
+        var canvas = document.createElement('canvas');
         var ctx = canvas.getContext("2d");
         var image = new Image();
         image.onload = function() {
           console.log('image is ' + image.width + 'x' + image.height);
           if( tablet ) {
+            canvas.width = image.width;
+            canvas.height = image.height*0.3;
             ctx.drawImage(image, 0, 0.35*image.height, image.width, 0.3*image.height, 0, 0, canvas.width, canvas.height);
           }
           else {
-            ctx.drawImage(image, 0, image.height*0.3, image.width, image.height*0.4, 0, 0, canvas.width, canvas.height);
+            canvas.width = image.width;
+            canvas.height = image.height*0.4;
+            ctx.drawImage(image, 0, image.height*0.3, image.width, image.height*0.4, 0, 0, image.width, image.height*0.4);
           }
-        };
+          this.picture = canvas.toDataURL('image/jpeg');
+          this.pictureTaken = true;
+        }.bind(this);
         image.src = 'data:image/png;base64,' + imageData;
       },
       (err) => {
         console.log(err);
-        this.picture = 'assets/icon/favicon.ico';
+        this.pictureTaken = false;
       });
   }
 
   reset() {
     this.isTransparent = true;
-    var canvas = <HTMLCanvasElement> document.getElementById("myCanvas");
-    var ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.pictureTaken = false;
   }
 
 }

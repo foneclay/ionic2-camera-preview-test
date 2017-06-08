@@ -1,5 +1,5 @@
 <ion-content no-padding [ngClass]="{ 'transparent': isTransparent, 'tablet': isTablet }">
-  <canvas id="myCanvas"></canvas>
+  <img [src]='picture' id="cropped-photo" *ngIf="pictureTaken">
   <ion-grid>
     <ion-row justify-content-center>
       <ion-col>
